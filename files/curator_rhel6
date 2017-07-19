@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# This is suitable for Fedora, Red Hat, CentOS and similar distributions.
+# It will not work on Ubuntu or other Debian-style distributions!
+#
+# chkconfig: 345 90 20
+# description: Redis
+# processname: redis-server
+# pidfile: /var/run/redis.pid
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+export PATH=$PATH:/usr/local/bin
+
+name=redis
+
+start() {
+    echo -n $"Starting $name: "
+    docker start $name
+    RETVAL=$?
+    [ $RETVAL -eq 0 ] && success
+    [ $RETVAL -ne 0 ] && failure
+    echo
+}
+
+stop() {
+    echo -n $"Stopping $name: "
+    docker stop $name
+    RETVAL=$?
+    echo
+}
+
+
+restart() {
+    stop
+    sleep 2
+    start
+}
+
+status() {
+    NCONTAINERS=$(docker ps |grep -c $name)
+    echo "$NCONTAINERS containers of $name running"
+    if [ "$NCONTAINERS" -gt 0 ]; then
+      RETVAL=0
+    else
+      RETVAL=1
+    fi
+    echo
+}
+
+case "$1" in
+    start)
+        start
+    ;;
+
+    stop)
+        stop
+    ;;
+
+    status)
+        status
+    ;;
+
+    restart)
+        restart
+    ;;
+
+    *)
+        echo "Usage: $0 {start|stop|status|restart}"
+        RETVAL=1
+esac
+
+exit $RETVAL
+

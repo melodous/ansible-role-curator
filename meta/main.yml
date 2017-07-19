@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  author: Raul Melo
+  description: Curator ansible role
+  company: OpenSolutions
+  platforms:
+    - name: RedHat
+      versions:
+        - 7
+dependencies: []

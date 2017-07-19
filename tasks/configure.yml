@@ -1,0 +1,76 @@
+---
+- name: Create curator folders
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - /etc/curator
+    - /etc/curator/crontabs
+
+- name: templating curator.yml
+  template:
+    src: "curator.yml.j2"
+    dest: "/etc/curator/curator.yml"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - restart curator
+
+- name: templating delete_indices.yml
+  template:
+    src: "delete_indices.yml.j2"
+    dest: "/etc/curator/delete_indices.yml"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - restart curator
+
+- name: templating crontab delete_indices
+  template:
+    src: "crontab_delete_indices.j2"
+    dest: "/etc/curator/crontabs/delete_indices"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - restart curator
+
+
+- name: Start curator containers
+  docker_container:
+    name: curator
+    image: "{{ curator_docker_image }}:{{ curator_version }}"
+    network_mode: host
+    state: started
+    log_driver: json-file
+    log_options:
+      max-file: "1"
+      max-size: "20m"
+    labels: "{{ curator_docker_labels }}"
+    restart_policy: unless-stopped
+    restart_retries: 3
+    volumes:
+      - /etc/hosts:/etc/hosts
+      - /etc/localtime:/etc/localtime
+      - /etc/curator:/root/.curator
+      - /etc/curator/crontabs:/etc/cron.d
+
+- name: Create init-script rhel6
+  copy: src=curator_rhel6 dest=/etc/init.d/curator owner=root group=root mode=0755
+  when:
+    ansible_distribution_major_version|int < 7
+    and ansible_os_family == 'RedHat'
+
+- name: Create init-script rhel7
+  copy: src=curator_rhel7 dest=/usr/lib/systemd/system/curator.service owner=root group=root mode=0644
+  when:
+    ansible_distribution_major_version|int > 6
+    and ansible_os_family == 'RedHat'
+
+- name: Enable init-scripts
+  service: name=curator enabled=yes state=started

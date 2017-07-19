@@ -1,0 +1,13 @@
+[Unit]
+Description=Redis container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=1s
+ExecStart=/usr/bin/docker start -a redis
+ExecStop=/usr/bin/docker stop -t 2 redis
+
+[Install]
+WantedBy=multi-user.target

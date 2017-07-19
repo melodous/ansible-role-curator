@@ -1,0 +1,13 @@
+.cache/
+.molecule/
+.vagrant/
+.venv/
+roles/
+pytestdebug.log
+junit*.xml
+filter_plugins/*.pyc
+tests/*.pyc
+tests/__pycache__/
+ansible-lint/*pyc
+docs/_build
+*.pyc

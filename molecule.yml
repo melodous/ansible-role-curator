@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+  requirements_file: requirements.yml
+  options:
+    force: True
+driver:
+  name: vagrant
+molecule:
+  ignore_paths:
+    - .git
+    - .vagrant
+    - .molecule
+    - .venv
+    - docs
+vagrant:
+  platforms:
+    - name: rhel7
+      box: bento/centos-7.1
+#      box_url: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box
+  providers:
+    - name: virtualbox
+      type: virtualbox
+      options:
+        memory: 512
+        cpus: 2
+  instances:
+    - name: curator
+      ansible_groups:
+        - group1
+verifier:
+  name: testinfra
