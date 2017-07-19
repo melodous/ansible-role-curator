@@ -4,9 +4,9 @@
 # It will not work on Ubuntu or other Debian-style distributions!
 #
 # chkconfig: 345 90 20
-# description: Redis
-# processname: redis-server
-# pidfile: /var/run/redis.pid
+# description: Curator
+# processname: curator-server
+# pidfile: /var/run/curator.pid
 #
 
 # Source function library.
@@ -14,7 +14,7 @@
 
 export PATH=$PATH:/usr/local/bin
 
-name=redis
+name=curator
 
 start() {
     echo -n $"Starting $name: "

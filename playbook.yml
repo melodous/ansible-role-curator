@@ -1,4 +1,17 @@
 ---
 - hosts: all
+  vars:
+    repo_epel: true
+    docker_private_registry: nexus.local:18079
+    docker_private_registry_insecure: true
+    docker_login_user: ci
+    docker_login_password: password
+    elasticsearch_docker_image: nexus.local:18079/melodous/curator
+    additional_hosts_entries:
+      - name: nexus.local
+        ip: 192.168.1.200
   roles:
-    - role: curator
+    - hosts
+    - repos
+    - docker
+    - curator

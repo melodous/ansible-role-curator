@@ -30,3 +30,5 @@ vagrant:
         - group1
 verifier:
   name: testinfra
+  options:
+    sudo: True

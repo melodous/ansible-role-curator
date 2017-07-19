@@ -1,13 +1,13 @@
 [Unit]
-Description=Redis container
+Description=Curator container
 Requires=docker.service
 After=docker.service
 
 [Service]
 Restart=always
 RestartSec=1s
-ExecStart=/usr/bin/docker start -a redis
-ExecStop=/usr/bin/docker stop -t 2 redis
+ExecStart=/usr/bin/docker start -a curator
+ExecStop=/usr/bin/docker stop -t 2 curator
 
 [Install]
 WantedBy=multi-user.target

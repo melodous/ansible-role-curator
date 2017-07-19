@@ -1,0 +1,16 @@
+- src: https://github.com/melodous/ansible-role-repos.git
+  scm: git
+  version: master
+  name: repos
+- src: https://github.com/melodous/ansible-role-docker.git
+  scm: git
+  version: master
+  name: docker
+- src: https://github.com/melodous/ansible-role-hosts.git
+  scm: git
+  version: master
+  name: hosts
+- src: https://github.com/melodous/ansible-role-pip.git
+  scm: git
+  version: master
+  name: pip
