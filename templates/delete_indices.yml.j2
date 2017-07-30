@@ -1,9 +1,10 @@
 ---
 actions:
-  1:
+{% for action in curator_delete_action %}
+  {{ action.id }}:
     action: delete_indices
     description: >-
-      Delete indices older than {{ curator_delete_days }} days (based on index name), for logstash-
+      Delete indices older than {{ action.age_count }} {{ action.age_unit }} (based on index name), for {{ action.pattern }}
       prefixed indices. Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
@@ -14,12 +15,13 @@ actions:
     filters:
     - filtertype: pattern
       kind: prefix
-      value: {{ curator_delete_index_pattern }}
+      value: {{ action.pattern }}
       exclude:
     - filtertype: age
       source: name
       direction: older
       timestring: '%Y.%m.%d'
-      unit: days
-      unit_count: {{ curator_delete_days }}
+      unit: {{ action.age_unit }}
+      unit_count: {{ action.age_count }}
       exclude:
+{% endfor %}

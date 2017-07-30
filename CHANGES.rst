@@ -21,6 +21,24 @@ Changed
 
 - First change
 
+curator v0.0.2 - 2017/07/29
+---------------------------------------
+
+Added
+~~~~~
+
+- Log options on role and create the log on host file
+- Added logrotate
+- Enrich log to enable monitoring
+
+Changed
+~~~~~~~
+
+- Changed configuration to enable multiple delete actions
+- Added vars to configure logging options
+- Update documentation
+
+
 curator v0.0.1 - 2017/07/19
 ---------------------------------------
 

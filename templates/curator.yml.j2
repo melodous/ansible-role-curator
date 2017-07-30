@@ -17,8 +17,8 @@ client:
   master_only: False
 
 logging:
-  loglevel: INFO
-  logfile:
-  logformat: default
+  loglevel: {{ curator_loglevel }}
+  logfile: {{ curator_logfile }}
+  logformat: {{ curator_logformat }}
   blacklist: ['elasticsearch', 'urllib3']
 

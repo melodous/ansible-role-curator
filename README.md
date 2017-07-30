@@ -60,17 +60,35 @@ curator docker image
 
     curator_es_node: 127.0.0.1
 
-`curator_delete_index_pattern`
+`curator_loglevel`
 
-> Patter to delete indices
+> Loglevel for curator (DEBUG,INFO,WARNING,ERROR,CRITICAL)
 
-    curator_delete_index_pattern: logstash-
+    curator_loglevel: INFO
 
-`curator_delete_days`
+`curator_logfile`
 
-> Delete indices older than this number of days
+> Logfile for curator, it will be created on host, mounted on the
+> container and logrotated
 
-    curator_delete_days: 7
+    curator_logfile: /var/log/curator.log
+
+`curator_logformat`
+
+> Curator format for the log, (default, json, logstash)
+
+    curator_logformat: default
+
+`curator_delete_action`
+
+> Curator action file: Ref
+> <https://www.elastic.co/guide/en/elasticsearch/client/curator/current/actions.html>
+
+    curator_delete_action:
+      - id: 1
+        pattern: logstash-
+        age_unit: days
+        age_count: 7
 
 `curator_delete_run_at_hour`
 

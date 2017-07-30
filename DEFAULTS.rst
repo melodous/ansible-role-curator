@@ -61,24 +61,52 @@ curator configuration
 
 
 
-.. envvar::  curator_delete_index_pattern
+.. envvar:: curator_loglevel
 
-   Patter to delete indices
-
-::
-
-  curator_delete_index_pattern: logstash-
-
-
-
-
-.. envvar::  curator_delete_days
-
-   Delete indices older than this number of days
+   Loglevel for curator (DEBUG,INFO,WARNING,ERROR,CRITICAL)
 
 ::
 
-  curator_delete_days: 7
+  curator_loglevel: INFO
+
+
+
+
+.. envvar:: curator_logfile
+
+   Logfile for curator, it will be created on host, mounted on the container
+   and logrotated
+
+::
+
+  curator_logfile: /var/log/curator.log
+
+
+
+
+.. envvar:: curator_logformat
+
+   Curator format for the log, (default, json, logstash)
+
+::
+
+  curator_logformat: default
+
+
+
+
+.. envvar:: curator_delete_action
+
+   Curator action file: Ref
+   https://www.elastic.co/guide/en/elasticsearch/client/curator/current/actions.html
+
+::
+
+  curator_delete_action:
+    - id: 1
+      pattern: logstash-
+      age_unit: days
+      age_count: 7
 
 
 

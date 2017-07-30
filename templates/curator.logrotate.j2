@@ -1,0 +1,10 @@
+/var/log/{{ curator_logfile }} {
+        monthly
+        rotate 7
+        copytruncate
+        missingok
+        compress
+        delaycompress
+        notifempty
+        minsize 1
+}

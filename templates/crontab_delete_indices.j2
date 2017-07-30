@@ -1,2 +1,1 @@
-1 {{ curator_delete_run_at_hour }} * * * curator /root/.curator/delete_indices.yml
-
+41 {{ curator_delete_run_at_hour }} * * * /usr/bin/curator /root/.curator/delete_indices.yml && echo "$(date '+%Y-%m-%d %H:%M:%S') MON Finalized OK" >>{{ curator_logfile }} || echo "$(date '+%Y-%m-%d %H:%M:%S') MON Finalized ERROR" >>{{ curator_logfile }}

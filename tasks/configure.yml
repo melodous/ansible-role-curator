@@ -40,6 +40,22 @@
   notify:
     - restart curator
 
+- name: Creating logfile on host
+  copy: 
+    content: ""
+    dest: "{{ curator_logfile }}"
+    force: no
+    owner: "root"
+    group: "root"
+    mode: 0644
+
+- name: Templating logrotate
+  template:
+    src: "curator.logrotate.j2"
+    dest: "/etc/logrotate.d/curator"
+    owner: "root"
+    group: "root"
+    mode: 0644
 
 - name: Start curator containers
   docker_container:
@@ -59,6 +75,7 @@
       - /etc/localtime:/etc/localtime
       - /etc/curator:/root/.curator
       - /etc/curator/crontabs:/etc/cron.d
+      - "{{ curator_logfile }}:{{ curator_logfile }}"
 
 - name: Create init-script rhel6
   copy: src=curator_rhel6 dest=/etc/init.d/curator owner=root group=root mode=0755
