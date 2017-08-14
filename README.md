@@ -90,11 +90,29 @@ curator docker image
         age_unit: days
         age_count: 7
 
+    curator_snashot_enabled: true
+
 `curator_delete_run_at_hour`
 
 > Delete index will run every dat at this hour
 
     curator_delete_run_at_hour: 4
+
+`curator_snapshot_repository`
+
+> Elasticsearch repository to save the snapshot
+
+    curator_snapshot_repository: backup
+
+`curator_snapshot_run_at_hour`
+
+> Snapshot backup will run every dat at this hour
+
+    curator_snapshot_run_at_hour: 2
+
+..envvar:: curator\_snapshot\_delete\_after
+
+    curator_snapshot_delete_after: 8
 
 Changelog
 ---------
@@ -113,6 +131,21 @@ changelog.
 ##### Changed
 
 -   First change
+
+### curator v0.0.2 - 2017/07/29
+
+##### Added
+
+-   Log options on role and create the log on host file
+-   Added logrotate
+-   Enrich log to enable monitoring
+-   Added snapshots
+
+##### Changed
+
+-   Changed configuration to enable multiple delete actions
+-   Added vars to configure logging options
+-   Update documentation
 
 ### curator v0.0.1 - 2017/07/19
 

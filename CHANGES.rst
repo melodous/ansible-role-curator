@@ -30,6 +30,7 @@ Added
 - Log options on role and create the log on host file
 - Added logrotate
 - Enrich log to enable monitoring
+- Added snapshots
 
 Changed
 ~~~~~~~

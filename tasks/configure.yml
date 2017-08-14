@@ -40,6 +40,28 @@
   notify:
     - restart curator
 
+- name: templating snapshot.yml
+  template:
+    src: "snapshot.yml.j2"
+    dest: "/etc/curator/snapshot.yml"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - restart curator
+  when: curator_snashot_enabled
+
+- name: templating crontab snapshot
+  template:
+    src: "crontab_snapshot.j2"
+    dest: "/etc/curator/crontabs/snapshot"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - restart curator
+  when: curator_snashot_enabled
+
 - name: Creating logfile on host
   copy: 
     content: ""

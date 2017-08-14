@@ -1,0 +1,52 @@
+---
+actions:
+  1:
+    action: snapshot
+    description: >-
+      Snapshot all indices older than 1 day (based on index
+      creation_date) with the default snapshot name pattern of
+      'curator-%Y%m%d%H%M%S'.  Wait for the snapshot to complete.  Do not skip
+      the repository filesystem access check.  Use the other options to create
+      the snapshot.
+    options:
+      repository: backup
+      # Leaving name blank will result in the default 'curator-%Y%m%d%H%M%S'
+      name: 
+      ignore_unavailable: False
+      include_global_state: True
+      partial: False
+      wait_for_completion: True
+      skip_repo_fs_check: False
+      timeout_override:
+      continue_if_exception: False
+      disable_action: False
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 1
+      exclude:
+  2:
+    action: delete_snapshots
+    description: >-
+      Delete snapshots from the selected repository older than 45 days
+      (based on creation_date), for 'curator-' prefixed snapshots.
+    options:
+      repository: backup
+      timeout_override:
+      continue_if_exception: False
+      disable_action: False
+      ignore_empty_list: True
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: curator-
+      exclude:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: {{ curator_snapshot_delete_after }}
+      exclude:
+

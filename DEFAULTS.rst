@@ -111,6 +111,17 @@ curator configuration
 
 
 
+.. envvar: curator_snashot_enabled
+
+   Enable management of snapshot on curator
+
+::
+
+  curator_snashot_enabled: true
+
+
+
+
 .. envvar::  curator_delete_run_at_hour
 
    Delete index will run every dat at this hour
@@ -118,6 +129,39 @@ curator configuration
 ::
 
   curator_delete_run_at_hour: 4
+
+
+
+
+.. envvar:: curator_snapshot_repository
+
+   Elasticsearch repository to save the snapshot
+
+::
+
+  curator_snapshot_repository: backup
+
+
+
+
+.. envvar::  curator_snapshot_run_at_hour
+
+   Snapshot backup will run every dat at this hour
+
+::
+
+  curator_snapshot_run_at_hour: 2
+
+
+
+
+..envvar:: curator_snapshot_delete_after
+
+  Delete snapshot older than this variable on days
+
+::
+
+  curator_snapshot_delete_after: 8
 
 
 

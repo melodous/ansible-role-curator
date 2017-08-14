@@ -1,0 +1,1 @@
+41 {{ curator_snapshot_run_at_hour }} * * * /usr/bin/curator /root/.curator/snapshot.yml && echo "$(date '+%Y-%m-%d %H:%M:%S') MON SNAPSHOT Finalized OK" >>{{ curator_logfile }} || echo "$(date '+%Y-%m-%d %H:%M:%S') MON SNAPSHOT Finalized ERROR" >>{{ curator_logfile }}
